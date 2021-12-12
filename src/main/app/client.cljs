@@ -3,10 +3,13 @@
     [app.application :refer [app]]
     [app.ui :as ui]
     [com.fulcrologic.fulcro.components :as comp]
+    [com.fulcrologic.fulcro.routing.dynamic-routing :as dr]
     [com.fulcrologic.fulcro.application :as app]))
 
 (defn ^:export init []
-  (app/mount! app ui/Root "app")
+  (app/set-root! app ui/Root {:initialize-state? true})
+  (dr/initialize! app) ; make ready, if you want to use dynamic routing...
+  (app/mount! app ui/Root "app" {:initialize-state? false})
   (js/console.log "Loaded"))
 
 (defn ^:export refresh []
